@@ -6,11 +6,15 @@ const {
   removeCategory,
 } = require("./controllers/category.controller");
 const {
-  showAllBooks,
+  getAllBooks,
   addBook,
   removeBook,
   findBook,
+  findBookByCategory,
 } = require("./controllers/book.controller");
+
+const { addMember } = require("./controllers/member.controller");
+const Counters = require("./models/counters.model");
 
 mongoose.connect("mongodb://127.0.0.1:27017/library", {
   useNewUrlParser: true,
@@ -25,9 +29,15 @@ mongoose.connection.on("open", async () => {
 
 async function showMenu() {
   console.log("----------------------Choose an option------------------------");
-  console.log("1-Show all categories   2-Add a category   3-Remove a category");
-  console.log("4-Show all books        5-Add book         6-Remove a book");
-  console.log("7-Search a book\n");
+  console.log(
+    "1-Show all categories     2-Add a category                3-Remove a category"
+  );
+  console.log(
+    "4-Show all books          5-Add book                      6-Remove a book"
+  );
+  console.log(
+    "7-Search a book           8-Get All books of a category   9-Add a member\n"
+  );
   let question = readLineSync.question("Choice: ");
 
   switch (question) {
@@ -56,7 +66,7 @@ async function showMenu() {
       break;
     case "4":
       showAlert("Books: ");
-      delay(showAllBooks, 0.75);
+      delay(getAllBooks, 0.75);
       delay(showMenu, 1.5);
       break;
     case "5":
@@ -90,6 +100,23 @@ async function showMenu() {
       delay(async () => {
         let bookTitle = readLineSync.question("Enter book Title: ");
         await findBook(bookTitle);
+        delay(showMenu, 1.5);
+      }, 1);
+      break;
+    case "8":
+      showAlert("Find a book by category");
+      delay(async () => {
+        await showAllCategories();
+        let bookCategory = readLineSync.question("Enter book category: ");
+        await findBookByCategory(bookCategory);
+        delay(showMenu, 1.5);
+      }, 1);
+      break;
+    case "9":
+      showAlert("Add a member");
+      delay(async () => {
+        let memberName = readLineSync.question("Enter member name: ");
+        await addMember(memberName);
         delay(showMenu, 1.5);
       }, 1);
       break;

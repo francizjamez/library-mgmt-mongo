@@ -1,0 +1,18 @@
+head
+    title "Mclaren Library"
+    link(rel="stylesheet" href="styles.css")
+body(class="bg-yellow-200 flex flex-col text-yellow-900 gap-6") 
+    h1(class="self-center") Welcome to Mclaren Library
+    div(class="max-w-xl flex flex-col gap-6 self-center container justify-self-end py-6 border-8 border-red-900 pb-8 shadow-lg")
+        div(class="flex flex-col")
+            h2(class="bg-white p-2 rounded-md w-max self-center") Books
+            div(class="flex gap-2 justify-center mt-4")
+                a(href="/books" class="self-center bg-white p-2 rounded w-min text-center shadow") View all books
+                a(href="/add" class="self-center bg-white p-2 rounded w-min text-center shadow") Add a book
+            hr(class="w-4/5 self-center bg-red-900 h-2")
+
+        div(class="flex flex-col")
+            h2(class="bg-white p-2 rounded-md w-max self-center") Categories
+            div(class="flex mt-4 justify-center")
+                a(href="/add" class="bg-white p-2 rounded w-min text-center shadow") Show Categories
+            hr(class="w-4/5 self-center bg-red-900 h-2")

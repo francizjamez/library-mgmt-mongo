@@ -1,0 +1,17 @@
+mixin Input(labelName, inputName)
+    div(class="flex flex-col gap-1")
+        label(class="")=labelName
+        input(type="text" name=inputName class="py-1 border-2 border-black justify-self-end px-2")
+
+head
+    title "Mclaren Library"
+    link(rel="stylesheet" href="styles.css")
+body(class="bg-yellow-200 grid place-items-center text-yellow-900 justify-self-end h-screen")
+    form(action="http://localhost:3001/books" method="post" class="bg-white p-6 rounded-md flex flex-col gap-3")
+        +Input("Book title:", "bookTitle")
+        +Input("Authors(separated by commas):", "bookAuthors")
+        select(name="bookCategory" class="bg-yellow-900 text-white p-2")
+            each cat in categories
+                option= cat.name
+
+        button(type="submit" class="bg-yellow-300 self-center p-2 rounded") Add book

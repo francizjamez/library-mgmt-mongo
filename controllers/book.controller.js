@@ -1,12 +1,15 @@
 const Book = require("../models/book.model");
 const Category = require("../models/category.model");
 
-const showAllBooks = async () => {
+const getAllBooks = async () => {
+  console.log("inside controller");
   let books = await Book.find();
   if (!books.length) {
     console.log("No books yet, add a book with option 5");
+    return;
   } else {
     books.forEach((book) => console.log(book.title));
+    return books;
   }
   console.log("");
 };
@@ -49,7 +52,8 @@ const removeBook = async (title) => {
 };
 
 const findBook = async (title) => {
-  const books = await Book.find({ title });
+  let regex = new RegExp(title);
+  const books = await Book.find({ title: { $regex: regex } });
 
   console.log();
   if (books.length) {
@@ -60,4 +64,26 @@ const findBook = async (title) => {
   console.log();
 };
 
-module.exports = { showAllBooks, addBook, removeBook, findBook };
+const findBookByCategory = async (categoryName) => {
+  // let regex = new RegExp(category);
+
+  let category = await Category.findOne({ name: categoryName });
+
+  const books = await Book.find({ category: category._id });
+
+  console.log();
+  if (books.length) {
+    books.forEach((book) => console.log(book));
+  } else {
+    console.log("No books match");
+  }
+  console.log();
+};
+
+module.exports = {
+  getAllBooks,
+  addBook,
+  removeBook,
+  findBook,
+  findBookByCategory,
+};

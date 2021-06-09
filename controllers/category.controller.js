@@ -1,8 +1,10 @@
 const Category = require("../models/category.model");
 
-let showAllCategories = async () => {
+let getAllCategories = async () => {
   let categories = await Category.find();
   categories.forEach((cat) => console.log("- " + cat.name));
+
+  return categories;
   console.log("");
 };
 
@@ -36,4 +38,4 @@ let removeCategory = async (name) => {
   console.log("");
 };
 
-module.exports = { showAllCategories, addCategory, removeCategory };
+module.exports = { getAllCategories, addCategory, removeCategory };
