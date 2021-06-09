@@ -4,6 +4,7 @@
   "description": "Mongodb cli database management",
   "main": "app.js",
   "scripts": {
+    "start-index": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js"
   },
@@ -11,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.12.12",
     "morgan": "^1.10.0",

@@ -1,8 +1,8 @@
 const express = require("express");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const PORT = 3001;
-const { getAllBooks } = require("./controllers/book.controller");
 const { getAllCategories } = require("./controllers/category.controller");
 
 mongoose.connect("mongodb://127.0.0.1:27017/library", {
@@ -16,11 +16,11 @@ const app = express();
 app.set("view engine", "pug");
 app.use(express.static("static"));
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.use((req, res, next) => {
   const { method, url } = req;
   const { statusCode } = res;
-
   console.log(`${method} ${url} ${statusCode}`);
   next();
 });

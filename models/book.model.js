@@ -3,7 +3,11 @@ const mongoose = require("mongoose");
 const bookSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
-    category: { type: mongoose.Schema.Types.ObjectID, ref: "Category" },
+    category: {
+      type: mongoose.Schema.Types.ObjectID,
+      ref: "Category",
+      required: true,
+    },
     authors: { type: [String], required: true },
   },
   { timestamps: true }

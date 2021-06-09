@@ -7,10 +7,19 @@ router
   .get(async (req, res) => {
     const books = await getAllBooks();
     console.log(books);
-    res.render("books", { books });
+    res.send(books);
+    // res.render("books", { books });
   })
   .post(async (req, res) => {
     // res.redirect("/");
+    try {
+      addBook(req.body);
+      res.redirect("/");
+    } catch (err) {
+      res.send("error in adding book");
+    }
+  })
+  .delete(async (req, res) => {
     try {
       addBook(req.body);
       res.redirect("/");
