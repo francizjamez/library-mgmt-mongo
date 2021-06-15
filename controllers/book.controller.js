@@ -17,10 +17,9 @@ const addBook = async ({ bookTitle, bookCategory, bookAuthors }) => {
   return res;
 };
 
-const removeBook = async ({ _id }) => {
+const removeBook = async (id) => {
   // let res = await Book.deleteOne({ title });
-  let res = await Book.deleteOne({ _id });
-
+  let res = await Book.deleteOne({ _id: id });
   return res;
 };
 
