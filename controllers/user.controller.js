@@ -43,9 +43,17 @@ async function loginUser(req, res) {
         { expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME }
       );
 
-      res.status(202).send({ access_token: token });
+      const refreshToken = jwt.sign(
+        { email: foundUser.email },
+        process.env.REFRESH_TOKEN_SECRET,
+        { expiresIn: process.env.REFRESH_TOKEN_EXPIRE_TIME }
+      );
+
+      res
+        .status(202)
+        .send({ access_token: token, refresh_token: refreshToken });
     } else {
-      res.status(401).send({ err: "Wrong password" });
+      res.status(403).send({ err: "Wrong password" });
     }
   } catch (err) {
     res.status(403).send(err);

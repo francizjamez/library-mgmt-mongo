@@ -2,6 +2,7 @@ const express = require("express");
 const { addUser, loginUser } = require("../controllers/user.controller");
 const authRouter = express.Router();
 const multer = require("multer");
+const { requestNewToken } = require("../controllers/token.controller");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -33,5 +34,7 @@ authRouter
   });
 
 authRouter.route("/login").post(loginUser);
+
+authRouter.route("/refresh_token").post(requestNewToken);
 
 module.exports = authRouter;

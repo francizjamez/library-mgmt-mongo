@@ -29,17 +29,20 @@ app.use((req, res, next) => {
   next();
 });
 
-const validateRequest = (req, res, next) => {
+const validateRequest = async (req, res, next) => {
   if (!req.headers.authorization) {
-    res.status(404).send("No token provided");
-  }
-
-  try {
-    const token = req.headers.authorization.split(" ")[1];
-    const verify = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    next();
-  } catch (err) {
-    res.status(401).send(err);
+    res.status(403).send("No token provided");
+  } else {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      console.log(token);
+      const data = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      console.log(data);
+      next();
+    } catch (err) {
+      console.log("invalid token");
+      res.status(401).send(err);
+    }
   }
 };
 
